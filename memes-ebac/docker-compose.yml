@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27016:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: user
+
+  
+  ms-memes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    ports:
+      - "8083:8083"
+
+      

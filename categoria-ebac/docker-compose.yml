@@ -1,0 +1,22 @@
+services:
+  postgres-compose:
+    image: postgres
+    environment:
+      POSTGRES_USERNAME: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "15432:5432"
+    volumes:
+      - ${HOME}/Documentos/Docker/ms-categoria/PostgreSQL/categoria-ebac:/var/lib/postgresql/data
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+  
+  ms-categoria:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres-compose
+    ports:
+      - "8081:8081"
+
+      
